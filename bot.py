@@ -62,13 +62,7 @@ async def on_message(message):
     update_quotes(quote)
     await message.channel.send("New quote added.")
 
- # if message.content.startswith("$delphrase"):
-   # banned = []
-   # if "banned" in db.keys():
-    #  index = int(message.content.split("$delphrase",1)[1])
-    #  delete_banned(index)
-    #  banned = db["banned"]
-    #await message.channel.send(banned)
+
 
 keep_alive()
 client.run('Token')
