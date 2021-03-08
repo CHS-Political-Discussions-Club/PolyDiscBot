@@ -71,4 +71,4 @@ async def on_message(message):
     #await message.channel.send(banned)
 
 keep_alive()
-client.run('ODE4NTgwODY4MzE4MzYzNjg5.YEaI1w.RhwpFRu4pD-A-itBkvEotMexrDM')
+client.run('Token')
