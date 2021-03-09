@@ -1,6 +1,4 @@
 import discord
-import requests
-import json
 import random
 from replit import db
 from discord.ext import commands
@@ -13,17 +11,25 @@ quotes_database = ["Make the lie big. Make it simple. Keep saying it, and eventu
 rapper_names = ["-50 Cent", "-Eminem", "-Kanye West", "-Snoop Dogg", "-Tupac", "-DaBaby", "-Kim Kardashian", "-Billie Eilish", "-Charli Damelio", "-Ash Ketchum", "-Drake", "-Jay-Z", "-Kendrick Lamar"]
 
 
-def update_quotes(quote):
+def update_quotes(quotes_message):
   if "quotes" in db.keys():
     quotes = db["quotes"]
-    quotes.append(quotes_database)
+    quotes.append(quotes_message)
     db["quotes"] = quotes
   else:
-    db["quotes"] = [quotes_database]
+    db["quotes"] = [quotes_message]
+
+def delete_quote(index):
+  quotes = db["quotes"]
+  if len(quotes) > index:
+    del quotes[index]
+  db["quotes"] = quotes
 
 
 
 client = commands.Bot(command_prefix = "!")
+
+
 
 
 
@@ -43,9 +49,12 @@ async def on_message(message):
   if message.author == client.user:
     return
 
+  options = quotes_database
+  if "quotes" in db.keys():
+    options = options + db["quotes"]
   
   if message.content.startswith(('!quote')):
-    await message.channel.send(random.choice(quotes_database))
+    await message.channel.send(random.choice(options))
   if message.content.startswith(('!quote')):
     await message.channel.send(random.choice(rapper_names))
   if message.content.startswith('Vaush'):
@@ -53,16 +62,27 @@ async def on_message(message):
   if message.content.startswith('!hello'):
     await message.channel.send('Hello!')
 
-  options = quotes_database
-  if "quotes" in db.keys():
-    options = options + db["quotes"]
-
+  
+  
   if message.content.startswith("!newquote"):
     quotes_message = message.content.split("!newquote ",1)[1]
-    update_quotes(quote)
+    update_quotes(quotes_message)
     await message.channel.send("New quote added.")
+  
+  if message.content.startswith("!delquote"):
+    quotes = []
+    if "quotes" in db.keys():
+      index = int(message.content.split("!delquote",1)[1])
+      delete_quote(index)
+      quotes = db["quotes"]
+    await message.channel.send(quotes)
 
+  if message.content.startswith("!list"):
+    quotes = []
+    if "quotes" in db.keys():
+      quotes = db["quotes"]
+    await message.channel.send(quotes)
 
 
 keep_alive()
-client.run('Token')
+client.run('ODE4NTgwODY4MzE4MzYzNjg5.YEaI1w.MbRlQt7AQ5_0ojc0UHkI_7Aw3ZQ')
