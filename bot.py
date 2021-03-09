@@ -85,4 +85,4 @@ async def on_message(message):
 
 
 keep_alive()
-client.run('ODE4NTgwODY4MzE4MzYzNjg5.YEaI1w.MbRlQt7AQ5_0ojc0UHkI_7Aw3ZQ')
+client.run(TOKEN)
