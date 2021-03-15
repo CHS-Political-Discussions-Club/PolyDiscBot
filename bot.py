@@ -58,7 +58,7 @@ async def on_message(message):
   if message.content.startswith(('!quote')):
     await message.channel.send(random.choice(rapper_names))
   if message.content.startswith('Vaush'):
-    await message.channel.send('Lol Vaush')
+    await message.channel.send('Lol Vaushite')
   if message.content.startswith('!hello'):
     await message.channel.send('Hello!')
 
